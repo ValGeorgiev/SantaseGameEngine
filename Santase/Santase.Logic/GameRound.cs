@@ -8,21 +8,36 @@ namespace Santase.Logic
 {
     public class GameRound: IGameRound
     {
-        private int totalPointWonByFirstPlayer;
-        private int totalPointWonBySecondPlayer;
-        public int TotalPointWonByFirstPlayer
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public int TotalPointWonBySecondPlayer
-        {
-            get { throw new NotImplementedException(); }
-        }
-
+        
         public void Start()
         {
             throw new NotImplementedException();
+        }
+
+        public int FirstPlayerPoints
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public int SecondPlayerPoints
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool FirstPlayerHasHand
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool SecondPlayerHasHand
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public PlayerPosition ClosedByPlayer
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

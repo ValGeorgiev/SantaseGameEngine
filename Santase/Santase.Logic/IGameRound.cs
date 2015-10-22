@@ -7,10 +7,14 @@ namespace Santase.Logic
 {
     public interface IGameRound
     {
-        int TotalPointWonByFirstPlayer { get; }
+        int FirstPlayerPoints { get; }
 
-        int TotalPointWonBySecondPlayer { get; }
+        int SecondPlayerPoints{ get; }
 
+        bool FirstPlayerHasHand { get; }
+        bool SecondPlayerHasHand { get; }
+
+        PlayerPosition ClosedByPlayer { get; }
         void Start();
         
     }
