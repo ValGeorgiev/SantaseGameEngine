@@ -61,7 +61,7 @@ namespace Santase.Logic
 
         private void PlayHand()
         {
-            IGameHand hand = new GameHand();
+            IGameHand hand = new GameHand(this.firstToPlay,this.firstPlayer, this.secondPlayer, this.state);
             hand.Start();
 
             this.UpdatePoint(hand);
