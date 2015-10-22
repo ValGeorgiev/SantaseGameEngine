@@ -1,5 +1,6 @@
 ﻿using Santase.Logic.Cards;
 using Santase.Logic.Players;
+using Santase.Logic.RoundStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace Santase.Logic
 
         private PlayerPosition firstToPlay;
 
+        private BaseRoundState state;
+
         public GameRound(IPlayer firstPlayer, IPlayer secondPlayer, PlayerPosition firstToPlay)
         {
             this.deck = new Deck();
@@ -39,6 +42,8 @@ namespace Santase.Logic
             IList<Card> secondPlayerCollectedHands = new List<Card>();
 
             this.firstToPlay = firstToPlay;
+
+            this.SetState(new StartRoundState(this));
         }
         public void Start()
         {
@@ -128,6 +133,12 @@ namespace Santase.Logic
         public PlayerPosition ClosedByPlayer
         {
             get { throw new NotImplementedException(); }
+        }
+
+
+        public void SetState(BaseRoundState newState)
+        {
+            this.state = newState;
         }
     }
 }

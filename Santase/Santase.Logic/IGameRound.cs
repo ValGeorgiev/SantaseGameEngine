@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Santase.Logic.RoundStates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,6 @@ namespace Santase.Logic
 
         PlayerPosition ClosedByPlayer { get; }
         void Start();
-        
+        void SetState(BaseRoundState newState);
     }
 }
