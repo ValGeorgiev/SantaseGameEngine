@@ -15,5 +15,7 @@ namespace Santase.Logic
         Card SecondPlayerCard { get; }
         Announce FirstPlayerAnnounce { get; }
         Announce SecondPlayerAnnounce { get; }
+
+        PlayerPosition GameClosedBy { get; }
     }
 }

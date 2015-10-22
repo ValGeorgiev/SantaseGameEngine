@@ -13,5 +13,7 @@ namespace Santase.Logic.Cards
         Card GetNextCard();
         void ChangeTrumpCard(Card newCard);
 
+        int CardsLeft { get; }
+
     }
 }

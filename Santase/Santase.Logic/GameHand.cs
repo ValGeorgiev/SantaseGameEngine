@@ -42,5 +42,11 @@ namespace Santase.Logic
         {
             get { throw new NotImplementedException(); }
         }
+
+
+        public PlayerPosition GameClosedBy
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }
