@@ -12,7 +12,8 @@ namespace Santase.ConsoleUI
     {
         public static void Main()
         {
-            ISantaceGame game = new SantaceGame();
+            ISantaceGame game = new SantaceGame(new ConsolePlayer(6,10), new ConsolePlayer(10,10), 
+                PlayerPosition.FirstPlayer);
 
             game.Start();
 
