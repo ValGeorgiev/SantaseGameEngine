@@ -10,6 +10,7 @@ namespace Santase.Logic
         void Start();
         int FirstPlayerTotalPoints { get; }
         int SecondPlayerTotalPoints { get; }
+        int RoundsPlayed { get; }
     
     }
 }
