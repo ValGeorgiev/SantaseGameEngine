@@ -18,5 +18,7 @@ namespace Santase.Logic
         PlayerPosition ClosedByPlayer { get; }
         void Start();
         void SetState(BaseRoundState newState);
+
+        PlayerPosition LastHandInPlayer { get; }
     }
 }

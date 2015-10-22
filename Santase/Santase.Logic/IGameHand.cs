@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Santase.Logic.Cards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,11 @@ namespace Santase.Logic
     public interface IGameHand
     {
         void Start();
-        public PlayerPosition Winner { get; }
+        PlayerPosition Winner { get; }
+
+        Card FirstPlayerCard { get; }
+        Card SecondPlayerCard { get; }
+        Announce FirstPlayerAnnounce { get; }
+        Announce SecondPlayerAnnounce { get; }
     }
 }

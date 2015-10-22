@@ -21,5 +21,26 @@ namespace Santase.Logic
         {
             get { throw new NotImplementedException(); }
         }
+
+
+        public Cards.Card FirstPlayerCard
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Cards.Card SecondPlayerCard
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Announce FirstPlayerAnnounce
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public Announce SecondPlayerAnnounce
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }
