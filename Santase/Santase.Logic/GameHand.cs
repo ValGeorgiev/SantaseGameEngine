@@ -10,6 +10,7 @@ namespace Santase.Logic
 {
     public class GameHand : IGameHand
     {
+        #region Fields
         private PlayerPosition whoWillPlayFirst;
         private IPlayer firstPlayer;
         private IList<Card> firstPlayerCards;
@@ -25,14 +26,48 @@ namespace Santase.Logic
 
         private Announce firstPlayerAnnounce;
         private Announce secondPlayerAnnounce;
+        #endregion
 
+        #region Properties
+         public PlayerPosition Winner
+        {
+            get { return this.winner; }
+        }
+
+        public Card FirstPlayerCard
+        {
+            get { return this.firstPlayerCard; }
+        }
+
+        public Card SecondPlayerCard
+        {
+            get { return this.secondPlayerCard; }
+        }
+
+        public Announce FirstPlayerAnnounce
+        {
+            get { return this.firstPlayerAnnounce; }
+        }
+
+        public Announce SecondPlayerAnnounce
+        {
+            get { return this.secondPlayerAnnounce; }
+        }
+
+        public PlayerPosition GameClosedBy
+        {
+            get { return this.whoClosedTheGame; }
+        }
+        #endregion
+
+        #region Constructor
         public GameHand(PlayerPosition whoWillPlayFirst,
-            IPlayer firstPlayer,
-            IList<Card> firstPlayerCards,
-            IPlayer secondPlayer,
-            IList<Card> secondPlayerCards,
-            BaseRoundState state,
-            IDeck deck)
+           IPlayer firstPlayer,
+           IList<Card> firstPlayerCards,
+           IPlayer secondPlayer,
+           IList<Card> secondPlayerCards,
+           BaseRoundState state,
+           IDeck deck)
         {
             this.whoWillPlayFirst = whoWillPlayFirst;
             this.firstPlayer = firstPlayer;
@@ -44,6 +79,9 @@ namespace Santase.Logic
             this.secondPlayerCards = secondPlayerCards;
             this.whoClosedTheGame = PlayerPosition.NoOne;
         }
+        #endregion
+
+        #region Methods
         public void Start()
         {
             IPlayer firstToPlay;
@@ -85,6 +123,11 @@ namespace Santase.Logic
             PlayerAction secondPlayerAction = secondToPlay.GetTurn(
                 context, 
                 this.actionValidater);
+            if (!this.actionValidater.isValid(secondPlayerAction, context, secondToPlayCards))
+            {
+                //TODO: something more graceful?
+                throw new InternalGameExceptions("Invalid turn");
+            }
 
             context.SecondPlayedCard = secondPlayerAction.Card;
 
@@ -164,36 +207,6 @@ namespace Santase.Logic
             return firstToPlayTurn;
         }
 
-        public PlayerPosition Winner
-        {
-            get { return this.winner; }
-        }
-
-
-        public Card FirstPlayerCard
-        {
-            get { return this.firstPlayerCard; }
-        }
-
-        public Card SecondPlayerCard
-        {
-            get { return this.secondPlayerCard; }
-        }
-
-        public Announce FirstPlayerAnnounce
-        {
-            get { return this.firstPlayerAnnounce; }
-        }
-
-        public Announce SecondPlayerAnnounce
-        {
-            get { return this.secondPlayerAnnounce; }
-        }
-
-
-        public PlayerPosition GameClosedBy
-        {
-            get { return this.whoClosedTheGame; }
-        }
+        #endregion
     }
 }

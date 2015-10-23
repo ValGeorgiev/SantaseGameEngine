@@ -9,16 +9,10 @@ namespace Santase.Logic.Players
 {
     public class PlayerTurnContext
     {
+        #region Properties
         public Card TrumpCard { get; internal set; }
 
         public BaseRoundState State { get; internal set; }
-        public PlayerTurnContext(Card trumpCard, BaseRoundState state, int cardsLeftInDeck)
-        {
-            this.State = state;
-            this.TrumpCard = trumpCard;
-            this.CardsLeftInDeck = cardsLeftInDeck;
-
-        }
         public int CardsLeftInDeck { get; private set; }
 
         public Card FirstPlayedCard { get; internal set; }
@@ -31,5 +25,14 @@ namespace Santase.Logic.Players
                 return this.FirstPlayedCard == null;
             }
         }
+        #endregion
+        public PlayerTurnContext(Card trumpCard, BaseRoundState state, int cardsLeftInDeck)
+        {
+            this.State = state;
+            this.TrumpCard = trumpCard;
+            this.CardsLeftInDeck = cardsLeftInDeck;
+
+        }
+        
     }
 }

@@ -9,6 +9,7 @@ namespace Santase.Logic
 {
     public class SantaceGame: ISantaceGame
     {
+        #region Fields
         private int firstPlayerTotalPoints;
         private int secondPlayerTotalPoints;
         private int roundsCount;
@@ -17,6 +18,9 @@ namespace Santase.Logic
         private IPlayer secondPlayer;
 
         private PlayerPosition firstToPlay;
+        #endregion
+
+        #region Methods
         public int FirstPlayerTotalPoints
         {
             get { return this.firstPlayerTotalPoints; }
@@ -26,7 +30,13 @@ namespace Santase.Logic
         {
             get { return this.secondPlayerTotalPoints; }
         }
+        public int RoundsPlayed
+        {
+            get { return this.roundsCount; }
+        }
+        #endregion
 
+        #region Constructor
         public SantaceGame(IPlayer firstPlayer, IPlayer secondPlayer, PlayerPosition firstToPlay)
         {
             this.firstPlayerTotalPoints = 0;
@@ -36,7 +46,9 @@ namespace Santase.Logic
             this.secondPlayer = secondPlayer;
             this.firstToPlay = firstToPlay;
         }
+        #endregion
 
+        #region Methods
         private bool isGameFinished()
         {
             return (FirstPlayerTotalPoints >= 11 || SecondPlayerTotalPoints >= 11);
@@ -136,13 +148,6 @@ namespace Santase.Logic
                 //Equal  points 0 points to each
             }
         }
-
-
-
-
-        public int RoundsPlayed
-        {
-            get { return this.roundsCount; }
-        }
+        #endregion
     }
 }

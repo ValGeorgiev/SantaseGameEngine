@@ -9,14 +9,23 @@ namespace Santase.Logic.Cards
 {
     public class Deck :IDeck
     {
+        #region Fields
         private IList<Card> listOfCards;
         private Card trumpCard;
+        #endregion
 
+        #region Properties
         public Card GetTrumpCard
         {
             get { return trumpCard; }
         }
+        public int CardsLeft
+        {
+            get { return this.listOfCards.Count; }
+        }
+        #endregion
 
+        #region Constructor
         public Deck()
         {
             this.listOfCards = new List<Card>();
@@ -30,7 +39,9 @@ namespace Santase.Logic.Cards
             this.listOfCards = this.listOfCards.Shuffle().ToList();
             this.trumpCard = listOfCards[0];
         }
+        #endregion
 
+        #region Methods
         public Card GetNextCard()
         {
             if (this.listOfCards.Count == 0)
@@ -74,11 +85,7 @@ namespace Santase.Logic.Cards
                 CardSuit.Spade
             };
         }
+        #endregion
 
-
-        public int CardsLeft
-        {
-            get { return this.listOfCards.Count; }
-        }
     }
 }

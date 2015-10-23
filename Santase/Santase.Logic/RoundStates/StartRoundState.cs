@@ -8,11 +8,7 @@ namespace Santase.Logic.RoundStates
 {
     public class StartRoundState: BaseRoundState
     {
-        public StartRoundState(IGameRound round)
-            : base(round)
-        {
-             
-        }
+       
         public override bool CanAnnouce20Or40
         {
             get { return false; }
@@ -36,6 +32,12 @@ namespace Santase.Logic.RoundStates
         public override bool ShouldDrawCard
         {
             get { return true; }
+        }
+
+        public StartRoundState(IGameRound round)
+            : base(round)
+        {
+
         }
 
         internal override void PlayHand(int cardsLeftInDeck)

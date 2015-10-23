@@ -12,13 +12,20 @@ namespace Santase.ConsoleUI
 {
     public class ConsolePlayer :BasePlayer
     {
+        #region Fields
         private int col;
         private int row;
+        #endregion
+
+        #region Constructor
         public ConsolePlayer(int row, int col)
         {
             this.row = row;
             this.col = col;
         }
+        #endregion
+
+        #region Methods
         public override void AddCard(Logic.Cards.Card card)
         {
             base.AddCard(card);
@@ -142,7 +149,8 @@ namespace Santase.ConsoleUI
             Console.WriteLine("Board: {0}{1}               ", context.FirstPlayedCard, context.SecondPlayedCard);
             Console.SetCursorPosition(0, 3);
             Console.WriteLine("Game state: {0}              ", context.State.GetType().Name);
-            
+
         }
+        #endregion
     }
 }

@@ -8,9 +8,20 @@ namespace Santase.Logic.Cards
 {
     public class Card
     {
+        #region Properties
         public CardType Type { get; private set; }
         public CardSuit Suit { get; private set; }
+        #endregion
 
+        #region Constructor
+        public Card(CardSuit suit, CardType type)
+        {
+            this.Type = type;
+            this.Suit = suit;
+        }
+        #endregion
+
+        #region Methods
         public int GetValue()
         {
             switch (this.Type)
@@ -31,12 +42,7 @@ namespace Santase.Logic.Cards
                     throw new InternalGameExceptions("Invalid card type" );
             }
         }
-        public Card(CardSuit suit, CardType type)
-        {
-            this.Type = type;
-            this.Suit = suit;
-        }
-
+      
         public override bool Equals(object obj)
         {
             var anotherCard = obj as Card;
@@ -52,7 +58,8 @@ namespace Santase.Logic.Cards
         {
             return string.Format("{0}{1}",
                 this.Type.ToFriendlyString(),
-                this.Suit.ToFriendlyString()); 
+                this.Suit.ToFriendlyString());
         }
+        #endregion
     }
 }

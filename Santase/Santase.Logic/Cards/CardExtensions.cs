@@ -8,6 +8,7 @@ namespace Santase.Logic.Cards
 {
     public static class CardExtensions
     {
+        #region Methods
         public static string ToFriendlyString(this CardSuit cardSuit)
         {
             switch (cardSuit)
@@ -44,5 +45,6 @@ namespace Santase.Logic.Cards
                     throw new ArgumentException("Invalid card type!!!");
             }
         }
+        #endregion
     }
 }

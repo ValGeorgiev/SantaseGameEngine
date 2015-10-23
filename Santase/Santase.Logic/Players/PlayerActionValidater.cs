@@ -1,4 +1,5 @@
 ﻿using Santase.Logic.Cards;
+using Santase.Logic.RoundStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace Santase.Logic.Players
                     return false;
                 }
             }
-            if (action.Type == PlayerActionType.CloseGame)
+            if (action.Type == PlayerActionType.CloseGame && !(context.State is FinalRoundState))
             {
-                if (context.State.CanClose || context.AmITheFirstPlayer)
+                if (!context.State.CanClose || !context.AmITheFirstPlayer)
                 {
                     return false;
                 }

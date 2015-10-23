@@ -7,17 +7,6 @@ namespace Santase.Logic.RoundStates
 {
     public class FinalRoundState:BaseRoundState
     {
-
-        public FinalRoundState(IGameRound round):base(round)
-        {
-             
-        }
-
-        public FinalRoundState()
-            :base(null)
-        {
-
-        }
         public override bool CanAnnouce20Or40
         {
             get { return true; }
@@ -42,6 +31,18 @@ namespace Santase.Logic.RoundStates
         {
             get { return false; }
         }
+
+        public FinalRoundState(IGameRound round):base(round)
+        {
+             
+        }
+
+        public FinalRoundState()
+            :base(null)
+        {
+
+        }
+        
 
 
         internal override void PlayHand(int cardsLeftInDeck)

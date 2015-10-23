@@ -11,6 +11,7 @@ namespace Santase.Logic
 {
     public class GameRound: IGameRound
     {
+        #region Fields
         private IDeck deck;
      
         private IPlayer firstPlayer;
@@ -28,7 +29,40 @@ namespace Santase.Logic
         private BaseRoundState state;
 
         private PlayerPosition gameClosedBy;
+        #endregion
 
+        #region Properties
+        public int FirstPlayerPoints
+        {
+            get { return firstPlayerPoints; }
+        }
+        public int SecondPlayerPoints
+        {
+            get { return secondPlayerPoints; }
+        }
+        public bool FirstPlayerHasHand
+        {
+            get { return this.firstPlayerHasCollectedHands; }
+        }
+        public bool SecondPlayerHasHand
+        {
+            get { return this.secondPlayerHasCollectedHands; }
+        }
+        public PlayerPosition ClosedByPlayer
+        {
+            get { return this.gameClosedBy; }
+        }
+        public void SetState(BaseRoundState newState)
+        {
+            this.state = newState;
+        }
+        public PlayerPosition LastHandInPlayer
+        {
+            get { return this.firstToPlay; }
+        }
+        #endregion
+
+        #region Constructors    
         public GameRound(IPlayer firstPlayer, IPlayer secondPlayer, PlayerPosition firstToPlay)
         {
             this.deck = new Deck();
@@ -49,6 +83,9 @@ namespace Santase.Logic
 
             this.gameClosedBy = PlayerPosition.NoOne;
         }
+        #endregion
+
+        #region Methods
         public void Start()
         {
             this.DealFirstCards();
@@ -135,7 +172,6 @@ namespace Santase.Logic
         
         }
 
-
         private void GiveCardToSecondPlayer()
         {
             var card = this.deck.GetNextCard();
@@ -187,43 +223,7 @@ namespace Santase.Logic
                 this.GiveCardToSecondPlayer();
             }
         }
+        #endregion
 
-        public int FirstPlayerPoints
-        {
-            get { return firstPlayerPoints; }
-        }
-
-        public int SecondPlayerPoints
-        {
-            get { return secondPlayerPoints; }
-        }
-
-        public bool FirstPlayerHasHand
-        {
-            get { return this.firstPlayerHasCollectedHands; }
-        }
-
-        public bool SecondPlayerHasHand
-        {
-            get { return this.secondPlayerHasCollectedHands; }
-        }
-
-
-        public PlayerPosition ClosedByPlayer
-        {
-            get { return this.gameClosedBy; }
-        }
-
-
-        public void SetState(BaseRoundState newState)
-        {
-            this.state = newState;
-        }
-
-
-        public PlayerPosition LastHandInPlayer
-        {
-            get { return this.firstToPlay; }
-        }
     }
 }

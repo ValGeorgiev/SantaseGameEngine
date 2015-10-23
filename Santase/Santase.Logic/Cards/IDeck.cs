@@ -10,10 +10,11 @@ namespace Santase.Logic.Cards
     {
         Card GetTrumpCard { get; }
 
+        int CardsLeft { get; }
+
         Card GetNextCard();
         void ChangeTrumpCard(Card newCard);
 
-        int CardsLeft { get; }
 
     }
 }
