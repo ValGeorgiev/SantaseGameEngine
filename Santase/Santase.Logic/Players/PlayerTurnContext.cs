@@ -9,9 +9,9 @@ namespace Santase.Logic.Players
 {
     public class PlayerTurnContext
     {
-        public Card TrumpCard { get; private set; }
+        public Card TrumpCard { get; internal set; }
 
-        public BaseRoundState State { get; private set; }
+        public BaseRoundState State { get; internal set; }
         public PlayerTurnContext(Card trumpCard, BaseRoundState state, int cardsLeftInDeck)
         {
             this.State = state;

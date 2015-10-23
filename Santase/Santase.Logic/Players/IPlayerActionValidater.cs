@@ -1,4 +1,5 @@
-﻿using Santase.Logic.Players;
+﻿using Santase.Logic.Cards;
+using Santase.Logic.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Santase.Logic
 {
     public interface IPlayerActionValidater
     {
-        bool isValid(PlayerAction action, PlayerTurnContext context);
+        bool isValid(PlayerAction action, PlayerTurnContext context, IList<Card> playerCards);
     }
 }

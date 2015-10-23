@@ -87,15 +87,16 @@ namespace Santase.Logic
             this.firstPlayerCards.Remove(hand.FirstPlayerCard);
             this.secondPlayerCards.Remove(hand.SecondPlayerCard);
             
-            this.DrawNewCards();
 
-            this.state.PlayHand(this.deck.CardsLeft);
 
             if (hand.GameClosedBy == PlayerPosition.FirstPlayer 
                 || hand.GameClosedBy == PlayerPosition.SecondPlayer)
             {
                 this.gameClosedBy = hand.GameClosedBy;
+                this.state.Close(); 
             }
+            this.DrawNewCards();
+            this.state.PlayHand(this.deck.CardsLeft);
             
         }
 

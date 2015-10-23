@@ -12,6 +12,12 @@ namespace Santase.Logic.RoundStates
         {
              
         }
+
+        public FinalRoundState()
+            :base(null)
+        {
+
+        }
         public override bool CanAnnouce20Or40
         {
             get { return true; }
