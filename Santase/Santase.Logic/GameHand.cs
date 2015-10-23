@@ -8,21 +8,24 @@ using System.Text;
 
 namespace Santase.Logic
 {
-    public class GameHand:IGameHand
+    public class GameHand : IGameHand
     {
         private PlayerPosition whoWillPlayFirst;
         private IPlayer firstPlayer;
         private IPlayer secondPlayer;
         private BaseRoundState state;
+        private IDeck deck;
         public GameHand(PlayerPosition whoWillPlayFirst,
             IPlayer firstPlayer,
             IPlayer secondPlayer,
-            BaseRoundState state )
+            BaseRoundState state,
+            IDeck deck)
         {
             this.whoWillPlayFirst = whoWillPlayFirst;
             this.firstPlayer = firstPlayer;
             this.secondPlayer = secondPlayer;
             this.state = state;
+            this.deck = deck;
         }
         public void Start()
         {
@@ -46,14 +49,18 @@ namespace Santase.Logic
                 firstPlayerAction = this.FirstPlayerTurn(firstToPlay);
             } while (firstPlayerAction.Type == PlayerActionType.PlayCard);
 
-            PlayerAction secondPlayerAction = firstToPlay.GetTurn(new PlayerTurnContext());
+            PlayerAction secondPlayerAction = firstToPlay.GetTurn(
+                new PlayerTurnContext(this.deck.GetTrumpCard, this.state, deck.CardsLeft), 
+                new PlayerActionValidater());
 
 
         }
 
         private PlayerAction FirstPlayerTurn(IPlayer firstToPlay)
         {
-            var firstToPlayTurn = firstToPlay.GetTurn(new PlayerTurnContext());
+            var firstToPlayTurn = firstToPlay.GetTurn(
+                new PlayerTurnContext(this.deck.GetTrumpCard, this.state, deck.CardsLeft),
+                new PlayerActionValidater());
 
             if (firstToPlayTurn.Type == PlayerActionType.CloseGame)
             {
@@ -62,7 +69,7 @@ namespace Santase.Logic
 
                 return firstToPlayTurn;
             }
-            if (firstToPlayTurn.Type == PlayerActionType.ChangTrump)
+            if (firstToPlayTurn.Type == PlayerActionType.ChangeTrump)
             {
                 //todo
                 return firstToPlayTurn;   

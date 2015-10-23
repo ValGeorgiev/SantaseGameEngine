@@ -18,8 +18,8 @@ namespace Santase.Logic.RoundStates
         public abstract bool CanChangeTrump { get; }
         public abstract bool ShouldObserveRules { get; }
         public abstract bool ShouldDrawCard { get; }
-        public abstract void PlayHand(int cardsLeftInDeck);
-        public void Close()
+        internal abstract void PlayHand(int cardsLeftInDeck);
+        internal void Close()
         {
             if (this.CanClose)
             {

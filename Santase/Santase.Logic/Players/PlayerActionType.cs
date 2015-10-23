@@ -10,6 +10,6 @@ namespace Santase.Logic.Players
     {
         PlayCard,
         CloseGame,
-        ChangTrump
+        ChangeTrump
     }
 }

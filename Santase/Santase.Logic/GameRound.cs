@@ -35,13 +35,13 @@ namespace Santase.Logic
 
             this.firstPlayer = firstPlayer;
             this.firstPlayerPoints = 0;
-            IList<Card> firstPlayerCards = new List<Card>();
-            IList<Card> firstPlayerCollectedHands = new List<Card>();
+            this.firstPlayerCards = new List<Card>();
+            this.firstPlayerCollectedHands = new List<Card>();
 
             this.secondPlayer = secondPlayer;
             this.secondPlayerPoints = 0;
-            IList<Card> secondPlayerCards = new List<Card>();
-            IList<Card> secondPlayerCollectedHands = new List<Card>();
+            this.secondPlayerCards = new List<Card>();
+            this.secondPlayerCollectedHands = new List<Card>();
 
             this.firstToPlay = firstToPlay;
 
@@ -61,7 +61,12 @@ namespace Santase.Logic
 
         private void PlayHand()
         {
-            IGameHand hand = new GameHand(this.firstToPlay,this.firstPlayer, this.secondPlayer, this.state);
+            IGameHand hand = new GameHand(
+                this.firstToPlay,
+                this.firstPlayer, 
+                this.secondPlayer, 
+                this.state,
+                this.deck);
             hand.Start();
 
             this.UpdatePoint(hand);

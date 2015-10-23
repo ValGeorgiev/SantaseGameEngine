@@ -38,7 +38,7 @@ namespace Santase.Logic.RoundStates
         }
 
 
-        public override void PlayHand(int cardsLeftInDeck)
+        internal override void PlayHand(int cardsLeftInDeck)
         {
             throw new NotImplementedException();
         }
