@@ -12,14 +12,24 @@ namespace Santase.Logic
     {
         private PlayerPosition whoWillPlayFirst;
         private IPlayer firstPlayer;
+        private IList<Card> firstPlayerCards;
         private IPlayer secondPlayer;
+        private IList<Card> secondPlayerCards;
         private BaseRoundState state;
         private IDeck deck;
         private IPlayerActionValidater actionValidater;
+        private PlayerPosition whoClosedTheGame;
+        private Card firstPlayerCard;
+        private Card secondPlayerCard;
+
+        private Announce firstPlayerAnnounce;
+        private Announce secondPlayerAnnounce;
 
         public GameHand(PlayerPosition whoWillPlayFirst,
             IPlayer firstPlayer,
+            IList<Card> firstPlayerCards,
             IPlayer secondPlayer,
+            IList<Card> secondPlayerCards,
             BaseRoundState state,
             IDeck deck)
         {
@@ -29,6 +39,9 @@ namespace Santase.Logic
             this.state = state;
             this.deck = deck;
             this.actionValidater = new PlayerActionValidater();
+            this.firstPlayerCards = firstPlayerCards;
+            this.secondPlayerCards = secondPlayerCards;
+            this.whoClosedTheGame = PlayerPosition.NoOne;
         }
         public void Start()
         {
@@ -68,6 +81,18 @@ namespace Santase.Logic
 
             context.SecondPlayedCard = secondPlayerAction.Card;
 
+
+            if (firstToPlay == this.firstPlayer)
+            {
+                this.firstPlayerCard = secondPlayerAction.Card;
+                this.firstPlayerAnnounce = secondPlayerAction.Announce;
+                this.secondPlayerCard = firstPlayerAction.Card;
+                this.secondPlayerAnnounce = firstPlayerAction.Announce;
+            }
+            else
+            {
+
+            }
              
             firstToPlay.EndTurn(context);
             secondToPlay.EndTurn(context);
@@ -83,21 +108,29 @@ namespace Santase.Logic
             if (firstToPlayTurn.Type == PlayerActionType.CloseGame)
             {
                 this.state.Close();
+                if (firstToPlay == this.firstPlayer)
+                {
+                    this.whoClosedTheGame = PlayerPosition.FirstPlayer;
+                }
+                else
+                {
+                    this.whoClosedTheGame = PlayerPosition.SecondPlayer;
+                }
                
 
-                return firstToPlayTurn;
             }
             if (firstToPlayTurn.Type == PlayerActionType.ChangeTrump)
             {
-              
-                return firstToPlayTurn;   
+                var changeTrump = new Card(this.deck.GetTrumpCard.Suit, CardType.Nine);
+                var oldTrump = this.deck.GetTrumpCard;
+                this.deck.ChangeTrumpCard(changeTrump);
+
+                this.firstPlayerCards.Remove(changeTrump);
+                this.firstPlayerCards.Add(oldTrump);
+
+                this.firstPlayer.AddCard(oldTrump);
             }
-            if (firstToPlayTurn.Type == PlayerActionType.PlayCard)
-            {
-                
-                return firstToPlayTurn;
-            }
-            return null; //should
+            return firstToPlayTurn;
         }
 
         public PlayerPosition Winner
@@ -108,28 +141,28 @@ namespace Santase.Logic
 
         public Card FirstPlayerCard
         {
-            get { throw new NotImplementedException(); }
+            get { return this.firstPlayerCard; }
         }
 
         public Card SecondPlayerCard
         {
-            get { throw new NotImplementedException(); }
+            get { return this.secondPlayerCard; }
         }
 
         public Announce FirstPlayerAnnounce
         {
-            get { throw new NotImplementedException(); }
+            get { return this.firstPlayerAnnounce; }
         }
 
         public Announce SecondPlayerAnnounce
         {
-            get { throw new NotImplementedException(); }
+            get { return this.secondPlayerAnnounce; }
         }
 
 
         public PlayerPosition GameClosedBy
         {
-            get { throw new NotImplementedException(); }
+            get { return this.whoClosedTheGame; }
         }
     }
 }

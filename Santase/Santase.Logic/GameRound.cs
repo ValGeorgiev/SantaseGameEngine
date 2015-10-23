@@ -16,12 +16,12 @@ namespace Santase.Logic
         private IPlayer firstPlayer;
         private int firstPlayerPoints;
         private IList<Card> firstPlayerCards;
-        private IList<Card> firstPlayerCollectedHands;
+        private bool firstPlayerHasCollectedHands;
         
         private IPlayer secondPlayer;
         private int secondPlayerPoints;
         private IList<Card> secondPlayerCards;
-        private IList<Card> secondPlayerCollectedHands;
+        private bool secondPlayerHasCollectedHands;
 
         private PlayerPosition firstToPlay;
 
@@ -36,12 +36,12 @@ namespace Santase.Logic
             this.firstPlayer = firstPlayer;
             this.firstPlayerPoints = 0;
             this.firstPlayerCards = new List<Card>();
-            this.firstPlayerCollectedHands = new List<Card>();
+            this.firstPlayerHasCollectedHands = false;
 
             this.secondPlayer = secondPlayer;
             this.secondPlayerPoints = 0;
             this.secondPlayerCards = new List<Card>();
-            this.secondPlayerCollectedHands = new List<Card>();
+            this.secondPlayerHasCollectedHands = false;
 
             this.firstToPlay = firstToPlay;
 
@@ -64,7 +64,9 @@ namespace Santase.Logic
             IGameHand hand = new GameHand(
                 this.firstToPlay,
                 this.firstPlayer, 
+                this.firstPlayerCards,
                 this.secondPlayer, 
+                this.secondPlayerCards,
                 this.state,
                 this.deck);
             hand.Start();
@@ -73,14 +75,11 @@ namespace Santase.Logic
             
             if (hand.Winner == PlayerPosition.FirstPlayer)
             {
-                firstPlayerCollectedHands.Add(hand.FirstPlayerCard);
-                firstPlayerCollectedHands.Add(hand.SecondPlayerCard);
+                this.firstPlayerHasCollectedHands = true;
             }
             else
             {
-
-                secondPlayerCollectedHands.Add(hand.FirstPlayerCard);
-                secondPlayerCollectedHands.Add(hand.SecondPlayerCard);
+                this.secondPlayerHasCollectedHands = true;
             }
 
             this.firstToPlay = hand.Winner;
@@ -95,7 +94,6 @@ namespace Santase.Logic
             if (hand.GameClosedBy == PlayerPosition.FirstPlayer 
                 || hand.GameClosedBy == PlayerPosition.SecondPlayer)
             {
-                this.state.Close();
                 this.gameClosedBy = hand.GameClosedBy;
             }
             
@@ -201,12 +199,12 @@ namespace Santase.Logic
 
         public bool FirstPlayerHasHand
         {
-            get { return this.firstPlayerCollectedHands.Count > 0; }
+            get { return this.firstPlayerHasCollectedHands; }
         }
 
         public bool SecondPlayerHasHand
         {
-            get { return this.secondPlayerCollectedHands.Count > 0; }
+            get { return this.secondPlayerHasCollectedHands; }
         }
 
 
