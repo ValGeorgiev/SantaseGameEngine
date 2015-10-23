@@ -21,6 +21,7 @@ namespace Santase.Logic
         private PlayerPosition whoClosedTheGame;
         private Card firstPlayerCard;
         private Card secondPlayerCard;
+        private PlayerPosition winner;
 
         private Announce firstPlayerAnnounce;
         private Announce secondPlayerAnnounce;
@@ -97,6 +98,17 @@ namespace Santase.Logic
             firstToPlay.EndTurn(context);
             secondToPlay.EndTurn(context);
 
+
+            ICardWinner cardWinner = new CardWinner();
+            if (firstToPlay == this.firstPlayer)
+            {
+                this.winner = cardWinner.Winner(firstPlayerAction.Card, secondPlayerAction.Card, this.deck.GetTrumpCard.Suit);
+            }
+            else
+            {
+                this.winner = cardWinner.Winner(secondPlayerAction.Card, firstPlayerAction.Card, this.deck.GetTrumpCard.Suit);
+            }
+
         }
 
         private PlayerAction FirstPlayerTurn(IPlayer firstToPlay, PlayerTurnContext context )
@@ -135,7 +147,7 @@ namespace Santase.Logic
 
         public PlayerPosition Winner
         {
-            get { throw new NotImplementedException(); }
+            get { return this.winner; }
         }
 
 
