@@ -15,6 +15,8 @@ namespace Santase.Logic
         private IPlayer secondPlayer;
         private BaseRoundState state;
         private IDeck deck;
+        private IPlayerActionValidater actionValidater;
+
         public GameHand(PlayerPosition whoWillPlayFirst,
             IPlayer firstPlayer,
             IPlayer secondPlayer,
@@ -26,6 +28,7 @@ namespace Santase.Logic
             this.secondPlayer = secondPlayer;
             this.state = state;
             this.deck = deck;
+            this.actionValidater = new PlayerActionValidater();
         }
         public void Start()
         {
@@ -41,42 +44,57 @@ namespace Santase.Logic
                 firstToPlay = this.secondPlayer;
                 secondToPlay = this.firstPlayer;
             }
-            //TODO prepare Player turn context  
+
+            var context = new PlayerTurnContext(this.deck.GetTrumpCard, this.state, deck.CardsLeft);
 
             PlayerAction firstPlayerAction = null;
             do
             {
-                firstPlayerAction = this.FirstPlayerTurn(firstToPlay);
+                firstPlayerAction = this.FirstPlayerTurn(firstToPlay, context);
+
+                if (!this.actionValidater.isValid(firstPlayerAction, context))
+                {
+                    //TODO: something more graceful?
+                    throw new InternalGameExceptions("Invalid turn");
+                }
+
             } while (firstPlayerAction.Type == PlayerActionType.PlayCard);
 
-            PlayerAction secondPlayerAction = firstToPlay.GetTurn(
-                new PlayerTurnContext(this.deck.GetTrumpCard, this.state, deck.CardsLeft), 
-                new PlayerActionValidater());
+            context.FirstPlayedCard = firstPlayerAction.Card;
 
+            PlayerAction secondPlayerAction = secondToPlay.GetTurn(
+                new PlayerTurnContext(this.deck.GetTrumpCard, this.state, deck.CardsLeft), 
+                this.actionValidater);
+
+            context.SecondPlayedCard = secondPlayerAction.Card;
+
+             
+            firstToPlay.EndTurn(context);
+            secondToPlay.EndTurn(context);
 
         }
 
-        private PlayerAction FirstPlayerTurn(IPlayer firstToPlay)
+        private PlayerAction FirstPlayerTurn(IPlayer firstToPlay, PlayerTurnContext context )
         {
             var firstToPlayTurn = firstToPlay.GetTurn(
-                new PlayerTurnContext(this.deck.GetTrumpCard, this.state, deck.CardsLeft),
-                new PlayerActionValidater());
+                context,
+                this.actionValidater);
 
             if (firstToPlayTurn.Type == PlayerActionType.CloseGame)
             {
                 this.state.Close();
-                //todo
+               
 
                 return firstToPlayTurn;
             }
             if (firstToPlayTurn.Type == PlayerActionType.ChangeTrump)
             {
-                //todo
+              
                 return firstToPlayTurn;   
             }
             if (firstToPlayTurn.Type == PlayerActionType.PlayCard)
             {
-                //todo
+                
                 return firstToPlayTurn;
             }
             return null; //should

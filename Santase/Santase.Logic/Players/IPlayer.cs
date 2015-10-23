@@ -12,5 +12,6 @@ namespace Santase.Logic.Players
 
         PlayerAction GetTurn(PlayerTurnContext context,
             IPlayerActionValidater actionValidator);
+        void EndTurn(PlayerTurnContext context);  
     }
 }

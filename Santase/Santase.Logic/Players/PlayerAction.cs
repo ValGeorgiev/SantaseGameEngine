@@ -8,7 +8,7 @@ namespace Santase.Logic.Players
 {
     public class PlayerAction
     {
-        public Card PlayedCard { get; private set; }
+        public Card Card { get; private set; }
         public PlayerActionType Type { get; private set; }
         public Announce Announce { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Santase.Logic.Players
         {
             this.Announce = announce;
             this.Type = type;
-            this.PlayedCard = card;
+            this.Card = card;
         }
     }
 }
